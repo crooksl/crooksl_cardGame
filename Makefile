@@ -1,11 +1,11 @@
 CXX = g++
 CXXFLAGS = --std=c++11 -g
 
-game: tests.o ultility.o main.o
-	${CXX}  ${CXXFLAGS} tests.o ultility.o main.o -o test
+game: cards.o ultility.o main.o
+	${CXX}  ${CXXFLAGS} cards.o ultility.o main.o -o test
 
-tests: cards.o ultility.o tests.o main.o
-	${CXX}  ${CXXFLAGS} cards.o ultility.o tests.o main.o -o test
+tests: cards.o ultility.o tests.o #main.o
+	${CXX}  ${CXXFLAGS} cards.o ultility.o tests.o  -o test
 
 
 clean:

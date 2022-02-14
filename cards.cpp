@@ -1,6 +1,23 @@
-//cards.cpp
-//Authors: Lizette Crooks 
-//Implementation of the classes defined in cards.h
+// cards.cpp
+// Lizette Crooks
+// perm #4087193
+
+/* Implementation of the classes defined in cards.h
+ -> c'tor, d'tor, d'tor helper
+ -> overloaded ==, <, > operators
+ -> insert, insert helper, getNodeFor, containsCard, 
+ -> predNode, predCard, sucNode, sucCard
+ -> removeCard
+*/
+
+/* TODO:
+    1. implement bst classes ✓
+    2. write test code for bst
+    3. work out ostream stuff
+    4. write game function
+    5. write test code for game function
+    6. check for memory leaks (valgrind)
+*/
 
 #include "cards.h"
 
@@ -94,7 +111,6 @@ bool CardBST::insertCard(char suit, int number) {
     // otherwise use recursive helper
     return insertCard(suit, number, root);
 }
-
 // recursive helper for insert (assumes n is never 0)
 bool CardBST::insertCard(char suit, int number, Node *n) {
     Card iCard {suit, number};
@@ -121,7 +137,7 @@ bool CardBST::insertCard(char suit, int number, Node *n) {
     }
 }
 
-// (DONE) returns the node for a given value or NULL if none exists
+// returns the node for a given value or NULL if none exists
 CardBST::Node* CardBST::getNodeFor(char suit, int number, Node* n) const{
     if (n == nullptr) {
         return nullptr;
@@ -138,8 +154,7 @@ CardBST::Node* CardBST::getNodeFor(char suit, int number, Node* n) const{
     }
     return 0;
 }
-
-// (DONE) returns true if value is in the tree; false if not
+// returns true if value is in the tree; false if not
 bool CardBST::containsCard(char suit, int number) const {
     if (getNodeFor(suit, number, root)) {
         return true;
@@ -147,4 +162,149 @@ bool CardBST::containsCard(char suit, int number) const {
     else {
         return false;
     }
+}
+
+// returns the Node containing the predecessor of the given value
+CardBST::Node* CardBST::getPredecessorNode(char suit, int number) const{
+    Node *n = getNodeFor(suit, number, root);
+    if (!n) {
+        return nullptr;
+    }
+    if (n->left != nullptr) {
+        n = n->left;
+        while (n->right) {
+            n = n->right;
+        }
+        return n;
+    }
+    else {
+        //find parent that is > node
+        Node *pre = n->parent;
+        while (pre && pre->left == n) {
+            n = pre;
+            pre = pre->parent;
+        }
+        return pre;
+    }
+    return 0;
+}
+// returns the predecessor value of the given value or 0 if there is none
+// was returning int n->info, changed it to be card n->newCard
+Card CardBST::getPredecessor(char suit, int number) const{
+    Node *n = getPredecessorNode(suit, number);
+    if (n == nullptr) {
+        return 0;
+    }
+    else {
+        return n->newCard;
+    }
+    
+    //return 0; 
+}
+
+// returns the Node containing the successor of the given value
+CardBST::Node* CardBST::getSuccessorNode(char suit, int number) const{
+    Node *n = getNodeFor(suit, number, root);
+    if (!n) {
+        return nullptr;
+    }
+    if (n->right != nullptr) {
+        n = n->right;
+        while (n->left) {
+            n = n->left;
+        }
+        return n;
+    }
+    else {
+        //find parent that is > node
+        Node *suc = n->parent;
+        while (suc && suc->right == n) {
+            n = suc;
+            suc = suc->parent;
+        }
+        return suc;
+    }
+    return 0;
+}
+// returns the successor value of the given value or 0 if there is none
+// was returning int n->info, changed it to be card n->newCard
+Card CardBST::getSuccessor(char suit, int number) const{
+    Node *n = getSuccessorNode(suit, number);
+    if (n == nullptr) {
+        return 0;
+    }
+    else {
+        return n->newCard;
+    }
+}
+
+// deletes the Node containing the given value from the tree
+// returns true if the node exist and was deleted or false if the node does not exist
+bool CardBST::removeCard(char suit, int number){
+    Node *n = getNodeFor(suit, number, root);
+    // no node exists
+    bool canRemove = false;
+    if (!n) {
+        return canRemove;
+    }
+
+    // leaf node case
+    if (!n->left && !n->right) {
+        if (n != root) {
+            if (n == n->parent->left) {
+                n->parent->left = nullptr;
+            }
+            else {
+                n->parent->right = nullptr;
+            }
+        }
+        else {
+            root = nullptr;
+        }
+        canRemove = true;
+        delete n;
+    }
+    // node has 2 children
+    else if (n->left && n->right) {
+        Node *sucNode = getSuccessorNode(n->newCard.getSuit(), n->newCard.getNumber());
+        char sucSuit = sucNode->newCard.getSuit();
+        int sucNumber = sucNode->newCard.getNumber();
+        removeCard(sucSuit, sucNumber);
+        n->newCard.setSuit(sucSuit);
+        n->newCard.setNumber(sucNumber);
+        canRemove = true;
+    }
+    
+    else {
+    // node has only one child
+        if (n->left) {
+            if (n != root) {
+                if (n == n->parent->left) {
+                    n->parent->left = n->left;
+                }
+                else {
+                    n->parent->right = n->left;
+                }
+            }
+            else {
+                root = n->left;
+            }
+        }
+        else if (n->right) {
+            if (n != root) {
+                if (n == n->parent->left) {
+                    n->parent->left = n->right;
+                }
+                else {
+                    n->parent->right = n->right;
+                }
+            }
+            else {
+                root = n->right;
+            }
+        }
+        canRemove = true;
+        delete n;
+    }
+    return canRemove;
 }
