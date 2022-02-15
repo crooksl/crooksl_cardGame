@@ -57,6 +57,14 @@ bool operator<(const Card& c1, const Card& c2) {
     if (c1 == c2) {
         return false;
     }
+    if (c1.getSuit() == c2.getSuit()) {
+        if (c1.getNumber() < c2.getNumber()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     else if (c1.getSuit() == 'c') {
         return true;
     }
@@ -78,6 +86,14 @@ bool operator<(const Card& c1, const Card& c2) {
 bool operator>(const Card& c1, const Card& c2) {
     if (c1 == c2) {
         return false;
+    }
+    if (c1.getSuit() == c2.getSuit()) {
+        if (c1.getNumber() > c2.getNumber()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     else if (c1.getSuit() == 'h') {
         return true;
