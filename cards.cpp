@@ -12,7 +12,7 @@
 
 /* TODO:
     1. implement bst classes ✓
-    2. write test code for bst
+    2. write test code for bst ✓
     3. work out ostream stuff
     4. write game function
     5. write test code for game function

@@ -3,6 +3,7 @@
 #include <string>
 
 using namespace std;
+#include "cards.cpp"
 
 int main(int argv, char** argc){
   if(argv < 3){
@@ -19,13 +20,18 @@ int main(int argv, char** argc){
     return 1;
   }
 
-  //Read each file
+  CardBST alice;
+  // read alice file
   while (getline (cardFile1, line) && (line.length() > 0)){
-
+    char aSuit;
+    // (for char) can automatically convert to char
+    int aNumber;
+    // (for number) check the string to see if it contains char, else convert to int
   }
   cardFile1.close();
 
-
+  CardBST bob;
+  // read bob file
   while (getline (cardFile2, line) && (line.length() > 0)){
 
   }
