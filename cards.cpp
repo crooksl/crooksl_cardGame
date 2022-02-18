@@ -13,7 +13,7 @@
 /* TODO:
     1. implement bst classes ✓
     2. write test code for bst ✓
-    3. work out ostream stuff
+    3. work out ostream stuff ✓
     4. write game function
     5. write test code for game function
     6. check for memory leaks (valgrind)
@@ -70,6 +70,14 @@ bool operator<(const Card& c1, const Card& c2) {
     }
     else if (c1.getSuit() == 'd') {
         if (c2.getSuit() == 's' || c2.getSuit() == 'h') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else if (c1.getSuit() == 's') {
+        if (c2.getSuit() == 'h') {
             return true;
         }
         else {
