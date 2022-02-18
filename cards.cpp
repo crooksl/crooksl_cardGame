@@ -5,7 +5,7 @@
 /* Implementation of the classes defined in cards.h
  -> c'tor, d'tor, d'tor helper
  -> overloaded ==, <, > operators
- -> insert, insert helper, getNodeFor, containsCard, 
+ -> insert, insert helper, getNodeFor, containsCard, printPreOrder
  -> predNode, predCard, sucNode, sucCard
  -> removeCard
 */
@@ -117,6 +117,20 @@ bool operator>(const Card& c1, const Card& c2) {
     return 0;
 }
 
+// print tree data pre-order
+void CardBST::printPreOrder() const {
+    printPreOrder(root);
+}
+
+// recursive helper for printPreOrder()
+void CardBST::printPreOrder(Node *n) const {
+    if (n) {
+	cout << n->newCard.getSuit() << " " << n->newCard.getNumber() << endl;
+	printPreOrder(n->left);
+	printPreOrder(n->right);
+    }
+}
+
 // insert value in tree; return false if duplicate
 bool CardBST::insertCard(char suit, int number) {
     // handle special case of empty tree first
@@ -165,7 +179,7 @@ CardBST::Node* CardBST::getNodeFor(char suit, int number, Node* n) const{
     if (iCard < n->newCard) {
         return getNodeFor(suit, number, n->left);
     }
-    else if (iCard > n->newCard) {
+    else {
         return getNodeFor(suit, number, n->right);
     }
     return 0;
@@ -175,9 +189,7 @@ bool CardBST::containsCard(char suit, int number) const {
     if (getNodeFor(suit, number, root)) {
         return true;
     }
-    else {
         return false;
-    }
 }
 
 // returns the Node containing the predecessor of the given value
