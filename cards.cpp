@@ -14,9 +14,10 @@
     1. implement bst classes ✓
     2. write test code for bst ✓
     3. work out ostream stuff ✓
-    4. write game function
-    5. write test code for game function
-    6. check for memory leaks (valgrind)
+    4. fix remove function ✓
+    5. write game function
+    6. write test code for game function
+    7. check for memory leaks (valgrind)
 */
 
 #include "cards.h"
@@ -317,9 +318,11 @@ bool CardBST::removeCard(char suit, int number){
             if (n != root) {
                 if (n == n->parent->left) {
                     n->parent->left = n->left;
+                    n->left->parent = n->parent;
                 }
                 else {
                     n->parent->right = n->left;
+                    n->left->parent = n->parent;
                 }
             }
             else {
@@ -330,9 +333,11 @@ bool CardBST::removeCard(char suit, int number){
             if (n != root) {
                 if (n == n->parent->left) {
                     n->parent->left = n->right;
+                    n->right->parent = n->parent;
                 }
                 else {
                     n->parent->right = n->right;
+                    n->right->parent = n->parent;
                 }
             }
             else {

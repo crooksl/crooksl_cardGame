@@ -24,7 +24,7 @@ class CardBST {
         friend bool operator<(const Card& c1, const Card& c2);      // overloaded <
         friend bool operator>(const Card& c1, const Card& c2);      // overloaded >
 
-        void printPreOrder() const;
+        void printPreOrder() const;                             // prints BST tree in preorder
         bool insertCard(char suit, int number);                 // insert value; return false if duplicate
         bool containsCard(char suit, int number) const;         // true if value is in tree
         Card getSuccessor(char suit, int number) const;         // returns the successor value of the given value or 0 if there is none
@@ -42,7 +42,7 @@ class CardBST {
             Node(char su = '0', int num = 0) : newCard(su,num), left(0), right(0), parent(0) { }
         };
 
-        void printPreOrder(Node *n) const;
+        void printPreOrder(Node *n) const;                          
         Node* getNodeFor(char suit, int number, Node* n) const;     // returns the node for a given value or NULL if none exists
         void clear(Node *n);                                        // for destructor
         bool insertCard(char suit, int number, Node *n);            // note: overloading names for simplicity

@@ -96,10 +96,6 @@ int main(int argv, char** argc){
 
   }
   cardFile2.close();
-  
-
-
-
 
   
   return 0;
