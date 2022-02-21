@@ -42,12 +42,13 @@ int main() {
     cout << "  successor of s 5 is: " << bst1.getSuccessor('s', 5).getSuit() << " " << bst1.getSuccessor('s', 5).getNumber() << endl;
 	cout << "  successor of h 10 is: " << bst1.getSuccessor('h', 10).getSuit() << " " << bst1.getSuccessor('h', 10).getNumber() << endl;
 
+    // min function
+    // cout << "  min of bst1 is: " << bst1.getMinCardNode(root).getSuit() << " " << bst1.getMaxCardNode(root).getNumber() << endl;
+
     // remove function
     cout << "  removing d 0   " << (bst1.removeCard('d', 0) ? "Y" : "N") << endl;
 	cout << "  removing c 3   " << (bst1.removeCard('c', 3) ? "Y" : "N") << endl;
 	cout << "  removing h 3   " << (bst1.removeCard('h', 3) ? "Y" : "N") << endl;
-
-    
 	cout << "  removing m 3 (should not work)   " << (bst1.removeCard('m', 3) ? "Y" : "N") << endl;
 
 }

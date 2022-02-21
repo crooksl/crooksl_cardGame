@@ -11,3 +11,4 @@ test: cards.o ultility.o tests.o #main.o
 clean:
 	rm -f *.o game
 	rm -f *.o tests
+	rm -f *.o main

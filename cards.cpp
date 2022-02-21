@@ -140,6 +140,21 @@ void CardBST::printPreOrder(Node *n) const {
     }
 }
 
+// print tree data in-order
+void CardBST::printInOrder() const {
+    printInOrder(root);
+}
+
+// recursive helper for printInOrder()
+void CardBST::printInOrder(Node *n) const {
+    if (n) {
+	printInOrder(n->left);
+    cout << n->newCard.getSuit() << " " << n->newCard.getNumber() << endl;
+	printInOrder(n->right);
+    }
+}
+
+
 // insert value in tree; return false if duplicate
 bool CardBST::insertCard(char suit, int number) {
     // handle special case of empty tree first
@@ -348,4 +363,75 @@ bool CardBST::removeCard(char suit, int number){
         delete n;
     }
     return canRemove;
+}
+
+CardBST::Node* CardBST::getMinCardNode(Node *n) const {
+    Node* minNode = n;
+    while (n) {
+        if (n->newCard < minNode->newCard) {
+            minNode = n;
+        }
+        n = n->left;
+    }
+    return minNode;
+}
+
+CardBST::Node* CardBST::getMaxCardNode(Node *n) const {
+    Node* maxNode = n;
+    while (n) {
+        if (n->newCard < maxNode->newCard) {
+            maxNode = n;
+        }
+        n = n->right;
+    }
+    return maxNode;
+}
+
+bool hasMatch(CardBST bst1, CardBST bst2) {
+    bool matchExists = false;
+    if (bst1.root == nullptr || bst2.root == nullptr) {
+        return false;
+    }
+
+    CardBST::Node *aMinNode = bst1.getMinCardNode(bst1.root);
+    CardBST::Node *bMinNode = bst2.getMinCardNode(bst2.root);
+    
+    while ( !(aMinNode == 0) ) {
+        if (aMinNode->newCard == bMinNode->newCard) {
+            return true;
+        }
+        else {
+            aMinNode = bst1.getSuccessorNode(aMinNode->newCard.getSuit(),aMinNode->newCard.getNumber());
+        }
+    }
+
+    return false;
+
+}
+
+
+
+// bst1 = alice, bst2 = bob
+void game (CardBST bst1, CardBST bst2) {
+    int count = 0;
+    
+    while (hasMatch(bst1, bst2)) {
+        // alice's turn
+        if ((count % 2) == 0) {
+            CardBST::Node *aMinN = bst1.getMinCardNode(bst1.root);
+            
+        }
+
+        // bob's turn
+        else {
+
+        }
+    }
+
+    cout << "Alice's cards:" << endl;
+    bst1.printInOrder();
+    cout << endl;
+    cout << "Bob's cards:" << endl;
+    bst2.printInOrder();
+
 }
