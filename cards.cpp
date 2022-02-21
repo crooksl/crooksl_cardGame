@@ -394,10 +394,10 @@ bool hasMatch(CardBST bst1, CardBST bst2) {
     }
 
     CardBST::Node *aMinNode = bst1.getMinCardNode(bst1.root);
-    CardBST::Node *bMinNode = bst2.getMinCardNode(bst2.root);
     
     while ( !(aMinNode == 0) ) {
-        if (aMinNode->newCard == bMinNode->newCard) {
+        //bool CardBST::containsCard(char suit, int number)
+        if (bst2.containsCard(aMinNode->newCard.getSuit(),aMinNode->newCard.getNumber())) {
             return true;
         }
         else {

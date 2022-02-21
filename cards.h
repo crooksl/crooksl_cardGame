@@ -12,7 +12,7 @@
 #include <iostream>
 using namespace std;
 
-#include "ultility.h"
+#include "utility.h"
 
 class CardBST {
 

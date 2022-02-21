@@ -45,6 +45,15 @@ int main() {
     // min function
     // cout << "  min of bst1 is: " << bst1.getMinCardNode(root).getSuit() << " " << bst1.getMaxCardNode(root).getNumber() << endl;
 
+    // == operator
+    //CardBST::Card c1 {'c', 7};
+    //Card::Card c2 {'c', 7};
+    //Card::Card c3 = 0;
+
+    //cout << "  is c1 = c2?  " << ((c1 == c2) ? "Y" : "N") << endl;
+    //cout << "  is c1 = c2?  " << ((c1 == c3) ? "Y" : "N") << endl;
+
+
     // remove function
     cout << "  removing d 0   " << (bst1.removeCard('d', 0) ? "Y" : "N") << endl;
 	cout << "  removing c 3   " << (bst1.removeCard('c', 3) ? "Y" : "N") << endl;
