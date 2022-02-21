@@ -54,7 +54,7 @@ class CardBST {
         Node* getSuccessorNode(char suit, int number) const;        // returns the Node containing the successor of the given value
         Node* getPredecessorNode(char suit, int number) const;      // returns the Node containing the predecessor of the given value
 
-        Node* getMinCardNode(Node *n) const;
+        Card getMinCard(Node *n) const;
         Node* getMaxCardNode(Node *n) const;
 
         Node *root;

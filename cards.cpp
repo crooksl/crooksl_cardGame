@@ -39,7 +39,9 @@ void CardBST::clear(Node *n) {
 	clear(n->left);
 	clear(n->right);
 	delete n;
+    //n = nullptr;
     }
+    n = nullptr;
 }
 
 // overloaded == operator
@@ -365,15 +367,15 @@ bool CardBST::removeCard(char suit, int number){
     return canRemove;
 }
 
-CardBST::Node* CardBST::getMinCardNode(Node *n) const {
-    Node* minNode = n;
+Card CardBST::getMinCard(Node *n) const {
+    Card minCard = n->newCard;
     while (n) {
-        if (n->newCard < minNode->newCard) {
-            minNode = n;
+        if (n->newCard < minCard) {
+            minCard = n->newCard;
         }
         n = n->left;
     }
-    return minNode;
+    return minCard;
 }
 
 CardBST::Node* CardBST::getMaxCardNode(Node *n) const {
@@ -388,20 +390,19 @@ CardBST::Node* CardBST::getMaxCardNode(Node *n) const {
 }
 
 bool hasMatch(CardBST bst1, CardBST bst2) {
-    bool matchExists = false;
     if (bst1.root == nullptr || bst2.root == nullptr) {
         return false;
     }
 
-    CardBST::Node *aMinNode = bst1.getMinCardNode(bst1.root);
+    Card aMinCard = bst1.getMinCard(bst1.root);
     
-    while ( !(aMinNode == 0) ) {
-        //bool CardBST::containsCard(char suit, int number)
-        if (bst2.containsCard(aMinNode->newCard.getSuit(),aMinNode->newCard.getNumber())) {
+    while ( !(aMinCard == 0) ) {
+        if (bst2.containsCard(aMinCard.getSuit(), aMinCard.getNumber())) {
+            //delete aMinCard;
             return true;
         }
         else {
-            aMinNode = bst1.getSuccessorNode(aMinNode->newCard.getSuit(),aMinNode->newCard.getNumber());
+            aMinCard = bst1.getSuccessor(aMinCard.getSuit(), aMinCard.getNumber());
         }
     }
 
@@ -418,7 +419,8 @@ void game (CardBST bst1, CardBST bst2) {
     while (hasMatch(bst1, bst2)) {
         // alice's turn
         if ((count % 2) == 0) {
-            CardBST::Node *aMinN = bst1.getMinCardNode(bst1.root);
+            //CardBST::Node *aMinN = bst1.getMinCardNode(bst1.root);
+             
             
         }
 

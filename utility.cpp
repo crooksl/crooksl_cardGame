@@ -4,6 +4,9 @@
 #include <iostream>
 using namespace std;
 
+// destructor
+Card::~Card() {}
+
 // getters
 char Card::getSuit() const {
     return su;

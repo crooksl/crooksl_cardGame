@@ -7,6 +7,7 @@ using namespace std;
 class Card {
     public:
         Card(char suit = '0', int number = 0): su(suit), num(number) {}
+        ~Card();
         char getSuit() const;
         int getNumber() const;
         void setSuit(char newSuit);
