@@ -128,6 +128,22 @@ bool operator>(const Card& c1, const Card& c2) {
     return 0;
 }
 
+char intToFaceCard(Card c1) {
+    if (c1.getNumber() == 0) {
+        return 'a';
+    }
+    else if (c1.getNumber() == 11) {
+        return 'j';
+    }
+    else if (c1.getNumber() == 12) {
+        return 'q';
+    }
+    else {
+        return 'k';
+    }
+    return 0;
+}
+
 // print tree data pre-order
 void CardBST::printPreOrder() const {
     printPreOrder(root);
@@ -151,7 +167,15 @@ void CardBST::printInOrder() const {
 void CardBST::printInOrder(Node *n) const {
     if (n) {
 	printInOrder(n->left);
-    cout << n->newCard.getSuit() << " " << n->newCard.getNumber() << endl;
+    cout << n->newCard.getSuit() << " ";
+
+    if (n->newCard.getNumber() == 0 || n->newCard.getNumber() == 11 || n->newCard.getNumber() == 12 || n->newCard.getNumber() == 13) {
+        cout << intToFaceCard(n->newCard) << endl; 
+    }
+    else {
+        cout << n->newCard.getNumber() << endl;
+    }
+    
 	printInOrder(n->right);
     }
 }
@@ -367,6 +391,7 @@ bool CardBST::removeCard(char suit, int number){
     return canRemove;
 }
 
+// helper for getMin
 Card CardBST::getMinCard(Node *n) const {
     Card minCard = n->newCard;
     while (n) {
@@ -378,23 +403,37 @@ Card CardBST::getMinCard(Node *n) const {
     return minCard;
 }
 
-CardBST::Node* CardBST::getMaxCardNode(Node *n) const {
-    Node* maxNode = n;
+// gets the minimum card in bst 
+Card CardBST::getMin() const {
+    Card min = getMinCard(root);
+    return min;
+}
+
+// helper for getMax
+Card CardBST::getMaxCard(Node *n) const {
+    Card maxCard = n->newCard;
     while (n) {
-        if (n->newCard < maxNode->newCard) {
-            maxNode = n;
+        if (n->newCard > maxCard) {
+            maxCard = n->newCard;
         }
         n = n->right;
     }
-    return maxNode;
+    return maxCard;
 }
 
-bool hasMatch(CardBST bst1, CardBST bst2) {
+// gets the max card in bst
+Card CardBST::getMax() const {
+    Card min = getMaxCard(root);
+    return min;
+}
+
+// returns true if a match exists between two bst's
+bool hasMatch(CardBST& bst1, CardBST& bst2) {
     if (bst1.root == nullptr || bst2.root == nullptr) {
         return false;
     }
 
-    Card aMinCard = bst1.getMinCard(bst1.root);
+    Card aMinCard = bst1.getMin();
     
     while ( !(aMinCard == 0) ) {
         if (bst2.containsCard(aMinCard.getSuit(), aMinCard.getNumber())) {
@@ -407,29 +446,84 @@ bool hasMatch(CardBST bst1, CardBST bst2) {
     }
 
     return false;
+}
 
+// finds the 1st matching card between two bst's starting at min (alice method)
+Card aMatchingCard(CardBST& bst1, CardBST& bst2) {
+
+    Card aMinCard = bst1.getMin();
+    
+    while ( !(aMinCard == 0) ) {
+        if (bst2.containsCard(aMinCard.getSuit(), aMinCard.getNumber())) {
+            return aMinCard;
+        }
+        else {
+            aMinCard = bst1.getSuccessor(aMinCard.getSuit(), aMinCard.getNumber());
+        }
+    }
+
+    return 0;
+}
+
+// finds the 1st matching card between two bst's starting at max (bob method)
+Card bMatchingCard(CardBST& bst1, CardBST& bst2) {
+
+    Card bMaxCard = bst2.getMax();
+    
+    while ( !(bMaxCard == 0) ) {
+        if (bst1.containsCard(bMaxCard.getSuit(), bMaxCard.getNumber())) {
+            return bMaxCard;
+        }
+        else {
+            bMaxCard = bst2.getPredecessor(bMaxCard.getSuit(), bMaxCard.getNumber());
+        }
+    }
+
+    return 0;
 }
 
 
-
 // bst1 = alice, bst2 = bob
-void game (CardBST bst1, CardBST bst2) {
+void game (CardBST& bst1, CardBST& bst2) {
     int count = 0;
     
     while (hasMatch(bst1, bst2)) {
         // alice's turn
         if ((count % 2) == 0) {
-            //CardBST::Node *aMinN = bst1.getMinCardNode(bst1.root);
-             
+            Card aMatch = aMatchingCard(bst1, bst2);
+            cout << "Alice picked matching card " << aMatch.getSuit() << " ";
             
+            if (aMatch.getNumber() == 0 || aMatch.getNumber() == 11 || aMatch.getNumber() == 12 || aMatch.getNumber() == 13) {
+                cout << intToFaceCard(aMatch) << endl; 
+            }
+            else {
+                cout << aMatch.getNumber() << endl;
+            }
+
+            bst1.removeCard(aMatch.getSuit(), aMatch.getNumber());
+            bst1.removeCard(aMatch.getSuit(), aMatch.getNumber());
         }
 
         // bob's turn
         else {
+            Card bMatch = bMatchingCard(bst1, bst2);
+            cout << "Bob picked matching card " << bMatch.getSuit() << " ";
 
+            if (bMatch.getNumber() == 0 || bMatch.getNumber() == 11 || bMatch.getNumber() == 12 || bMatch.getNumber() == 13) {
+                cout << intToFaceCard(bMatch) << endl; 
+            }
+            else {
+                cout << bMatch.getNumber() << endl;
+            } 
+
+            bst1.removeCard(bMatch.getSuit(), bMatch.getNumber());
+            bst1.removeCard(bMatch.getSuit(), bMatch.getNumber());
         }
+
+        count++;
     }
 
+    cout << endl;
     cout << "Alice's cards:" << endl;
     bst1.printInOrder();
     cout << endl;

@@ -32,8 +32,17 @@ class CardBST {
         Card getPredecessor(char suit, int number) const;       // returns the predecessor  value of the given value or 0 if there is none
         bool removeCard(char suit, int number);                 // deletes the Node containing the given value from the tree
 
-        friend void game(CardBST bst1, CardBST bst2);
-        friend bool hasMatch(CardBST bst1, CardBST bst2);
+        friend void game(CardBST& bst1, CardBST& bst2);
+        friend bool hasMatch(CardBST& bst1, CardBST& bst2);
+        friend Card aMatchingCard(CardBST& bst1, CardBST& bst2);
+        friend Card bMatchingCard(CardBST& bst1, CardBST& bst2);
+        Card getMin() const;
+        Card getMax() const;
+
+        friend char intToFaceCard(Card c1);
+
+
+
 
     private:
         struct Node {
@@ -55,7 +64,7 @@ class CardBST {
         Node* getPredecessorNode(char suit, int number) const;      // returns the Node containing the predecessor of the given value
 
         Card getMinCard(Node *n) const;
-        Node* getMaxCardNode(Node *n) const;
+        Card getMaxCard(Node *n) const;
 
         Node *root;
 

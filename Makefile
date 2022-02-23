@@ -1,6 +1,8 @@
 CXX = g++
 CXXFLAGS = --std=c++11 -g
 
+all: game
+
 game: cards.o utility.o main.o
 	${CXX}  ${CXXFLAGS} cards.o utility.o main.o -o game
 
@@ -21,5 +23,5 @@ tests.o:
 
 clean:
 	rm -f *.o game
-	rm -f *.o tests
+	rm -f *.o test
 	rm -f *.o main

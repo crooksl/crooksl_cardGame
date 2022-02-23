@@ -53,9 +53,6 @@ int main() {
 	cout << "  successor of h 10 is: " << bst1.getSuccessor('h', 10).getSuit() << " " << bst1.getSuccessor('h', 10).getNumber() << endl;
     */
 
-    // min function
-    // cout << "  min of bst1 is: " << bst1.getMinCardNode(root).getSuit() << " " << bst1.getMaxCardNode(root).getNumber() << endl;
-
     // == operator
     bool operator==(const Card& c1, const Card& c2);
     Card c1 {'c', 7};
@@ -66,9 +63,14 @@ int main() {
     cout << "is c1 = c3?  " << ((c1 == c3) ? "Y" : "N") << endl;
     cout << endl;
 
-    // hasMatch function
+    // getMin function
+    //Card getMin(char suit, int number);
+    //cout << "min card is:  " << bst1.getMin('h', 3).getSuit() << " " << bst1.getMin('h', 3).getNumber() << endl;
+    
+    //hasMatch function 
+    //bool match = hasMatch(bst1, bst2);
     cout << "does bst1 have a matching card in bst2:  " << ((hasMatch(bst1, bst2)) ? "Y" : "N") << endl;
-    cout << "hello" <<endl;
+    
 
 
     // remove function

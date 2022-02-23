@@ -97,6 +97,10 @@ int main(int argv, char** argc){
   }
   cardFile2.close();
 
+  //bool hasMatch(CardBST bst1, CardBST bst2);
+  //cout << "does bst1 have a matching card in bst2:  " << ((hasMatch(alice, bob)) ? "Y" : "N") << endl;
+
+  game (alice, bob);
   
   return 0;
 }
