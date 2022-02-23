@@ -501,7 +501,7 @@ void game (CardBST& bst1, CardBST& bst2) {
             }
 
             bst1.removeCard(aMatch.getSuit(), aMatch.getNumber());
-            bst1.removeCard(aMatch.getSuit(), aMatch.getNumber());
+            bst2.removeCard(aMatch.getSuit(), aMatch.getNumber());
         }
 
         // bob's turn
@@ -517,7 +517,7 @@ void game (CardBST& bst1, CardBST& bst2) {
             } 
 
             bst1.removeCard(bMatch.getSuit(), bMatch.getNumber());
-            bst1.removeCard(bMatch.getSuit(), bMatch.getNumber());
+            bst2.removeCard(bMatch.getSuit(), bMatch.getNumber());
         }
 
         count++;
