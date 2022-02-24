@@ -2,22 +2,14 @@
 // Lizette Crooks
 // perm #4087193
 
-/* Implementation of the classes defined in cards.h
- -> c'tor, d'tor, d'tor helper
- -> overloaded ==, <, > operators
- -> insert, insert helper, getNodeFor, containsCard, printPreOrder
- -> predNode, predCard, sucNode, sucCard
- -> removeCard
-*/
-
 /* TODO:
     1. implement bst classes ✓
     2. write test code for bst ✓
     3. work out ostream stuff ✓
     4. fix remove function ✓
-    5. write game function
-    6. write test code for game function
-    7. check for memory leaks (valgrind)
+    5. write game function ✓
+    6. write test code for game function ✓
+    7. check for memory leaks (valgrind) ✓
 */
 
 #include "cards.h"
@@ -483,7 +475,7 @@ Card bMatchingCard(CardBST& bst1, CardBST& bst2) {
 }
 
 
-// bst1 = alice, bst2 = bob
+// bst1 = alice, bst2 = bob 
 void game (CardBST& bst1, CardBST& bst2) {
     int count = 0;
     
