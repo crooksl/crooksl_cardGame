@@ -1,9 +1,8 @@
-// cards.h
 // Lizette Crooks
-// perm #4087193
+// cards.h
 
 /* All class declarations go here
- ->CardBST
+ ->CardBST ✓
 */
 
 #ifndef CARDS_H

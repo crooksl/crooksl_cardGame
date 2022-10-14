@@ -1,6 +1,5 @@
-// cards.cpp
 // Lizette Crooks
-// perm #4087193
+// cards.cpp
 
 /* TODO:
     1. implement bst classes ✓
